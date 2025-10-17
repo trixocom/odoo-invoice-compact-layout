@@ -1,70 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
-    <!-- Template simplificado que solo agrega estilos CSS -->
-    <template id="report_invoice_document_inherit_compact" inherit_id="account.report_invoice_document" priority="99">
-        
-        <!-- Agregar estilos CSS directamente en el documento -->
-        <xpath expr="//t[@t-call='web.external_layout']" position="before">
+    <!-- APPROACH 1: Heredar web.external_layout_standard directamente -->
+    <template id="external_layout_ultra_compact" inherit_id="web.external_layout_standard" priority="999">
+        <xpath expr="//div[@class='header']" position="after">
             <style>
-                /* Reducir espacio del header */
-                .header {
-                    margin-bottom: 0mm !important;
-                    padding-bottom: 0mm !important;
+                /* === ULTRA COMPACT - MÁXIMA PRIORIDAD === */
+                
+                /* Eliminar TODO el espacio del header */
+                div.header, .header {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    height: auto !important;
                 }
                 
-                /* Reducir espacio del article/contenido principal */
-                .article {
-                    margin-top: 0mm !important;
-                    padding-top: 2mm !important;
+                /* Eliminar espacio después del header */
+                div.header + *, .header + * {
+                    margin-top: 0 !important;
+                    padding-top: 0 !important;
                 }
                 
-                /* Reducir espacio en la página */
-                div.page {
-                    padding-top: 5mm !important;
+                /* Compactar página completa */
+                div.page, .page {
+                    padding-top: 3mm !important;
+                    margin-top: 0 !important;
                 }
                 
-                /* Optimizar información del documento */
-                #informations {
-                    margin-top: 2mm !important;
-                    margin-bottom: 2mm !important;
+                /* Compactar article/contenido */
+                div.article, .article {
+                    margin-top: 0 !important;
+                    padding-top: 1mm !important;
                 }
                 
-                /* Reducir espacios en filas */
-                .row {
-                    margin-bottom: 2mm !important;
+                /* Todas las filas (rows) compactas */
+                .row, div.row {
+                    margin-top: 1mm !important;
+                    margin-bottom: 1mm !important;
+                    padding: 0 !important;
                 }
                 
-                /* Optimizar tablas */
-                table.o_report_block_table,
-                table.table {
-                    margin-top: 2mm !important;
-                    margin-bottom: 2mm !important;
+                /* Dirección de empresa sin espacio */
+                .company_address {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    line-height: 1.1 !important;
+                }
+                
+                /* Tablas compactas */
+                table, table.table {
+                    margin: 2mm 0 !important;
                 }
                 
                 table thead th {
-                    padding: 1mm 2mm !important;
-                    line-height: 1.2 !important;
+                    padding: 1mm !important;
+                    line-height: 1.1 !important;
                 }
                 
                 table tbody td {
                     padding: 1mm 2mm !important;
+                    line-height: 1.1 !important;
+                }
+                
+                /* Eliminar margen Bootstrap */
+                .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
+                .my-1, .my-2, .my-3, .my-4, .my-5 {
+                    margin-top: 1mm !important;
+                }
+                
+                .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
+                .my-1, .my-2, .my-3, .my-4, .my-5 {
+                    margin-bottom: 1mm !important;
+                }
+                
+                /* Eliminar padding Bootstrap */
+                .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
+                .py-1, .py-2, .py-3, .py-4, .py-5 {
+                    padding-top: 1mm !important;
+                }
+                
+                .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
+                .py-1, .py-2, .py-3, .py-4, .py-5 {
+                    padding-bottom: 1mm !important;
+                }
+                
+                /* Ocultar divs vacíos */
+                div:empty {
+                    display: none !important;
+                }
+                
+                /* Reducir altura de línea general */
+                body, div, span, p {
                     line-height: 1.2 !important;
                 }
                 
-                /* Reducir espacio después de dirección de empresa */
-                .company_address {
-                    margin-bottom: 2mm !important;
-                }
-                
-                /* Optimizar h2 títulos */
-                h2 {
-                    margin-top: 2mm !important;
-                    margin-bottom: 2mm !important;
+                /* h2 y títulos compactos */
+                h1, h2, h3, h4, h5, h6 {
+                    margin: 1mm 0 !important;
+                    padding: 0 !important;
                 }
             </style>
         </xpath>
-        
+    </template>
+    
+    <!-- APPROACH 2: CSS Global en paperformat -->
+    <template id="global_compact_styles" inherit_id="web.report_layout" priority="999">
+        <xpath expr="//head" position="inside">
+            <style type="text/css">
+                @media print {
+                    /* Forzar compactación en impresión */
+                    * {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    .header {
+                        margin-bottom: 2mm !important;
+                    }
+                    
+                    .page {
+                        padding-top: 5mm !important;
+                    }
+                    
+                    .row {
+                        margin: 1mm 0 !important;
+                    }
+                }
+            </style>
+        </xpath>
     </template>
     
 </odoo>
