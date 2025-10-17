@@ -5,12 +5,26 @@
 ![Odoo Version](https://img.shields.io/badge/Odoo-18.0-blue)
 ![License](https://img.shields.io/badge/License-LGPL--3-green)
 ![Status](https://img.shields.io/badge/Status-Stable-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.0.1-orange)
 
 Módulo para optimizar el espaciado en reportes de facturas de Odoo 18, reduciendo el espacio entre el encabezado de la empresa y la información del cliente.
 
-[Instalación](#-instalación-rápida) • [Características](#-características) • [Documentación](INSTALACION.md) • [Soporte](#-soporte)
+[Instalación](#-instalación-rápida) • [Características](#-características) • [Changelog](CHANGELOG.md) • [Soporte](#-soporte)
 
 </div>
+
+---
+
+## 🔥 Versión 1.0.1 - CORRECCIÓN IMPORTANTE
+
+**⚠️ Si instalaste la versión 1.0.0 y tuviste errores, actualiza a la v1.0.1**
+
+Esta versión corrige problemas de compatibilidad con Odoo 18:
+- ✅ Eliminados XPaths incompatibles
+- ✅ Approach simplificado usando solo CSS inline
+- ✅ 100% compatible con estructura de Odoo 18
+
+📖 [Ver detalles de los cambios](CHANGELOG.md)
 
 ---
 
@@ -51,7 +65,7 @@ RUT: XX.XXX.XXX-X
 - ✅ **Compatible** con layouts estándar de Odoo 18
 - ✅ **Fácil instalación y desinstalación**
 - ✅ **Sin configuración** adicional requerida
-- ✅ **Personalizable** mediante variables SCSS
+- ✅ **100% CSS inline** - sin dependencias externas
 - ✅ **Compatible** con Odoo Community y Enterprise
 
 ---
@@ -104,41 +118,47 @@ docker-compose restart odoo
 
 ```
 odoo_invoice_compact/
-├── __init__.py                              # Inicialización del módulo
-├── __manifest__.py                          # Configuración del módulo
-├── README.md                                # Este archivo
-├── INSTALACION.md                           # Guía de instalación detallada
-├── install.sh                               # Script de instalación automática
-├── views/
-│   └── report_invoice_compact.xml          # Templates XML para reportes
-└── static/
-    └── src/
-        └── scss/
-            └── report_invoice_compact.scss  # Estilos SCSS
+├── __init__.py                    # Inicialización del módulo
+├── __manifest__.py                # Configuración del módulo (v1.0.1)
+├── README.md                      # Este archivo
+├── CHANGELOG.md                   # Historial de cambios
+├── INSTALACION.md                 # Guía de instalación detallada
+├── install.sh                     # Script de instalación automática
+└── views/
+    └── report_invoice_compact.xml # Template XML con CSS inline
 ```
+
+**Nota:** A partir de v1.0.1, ya no se requiere la carpeta `static/` - todo el CSS está inline en el XML.
 
 ---
 
 ## 🎨 Personalización
 
-Si deseas ajustar el espaciado, edita:
+Para ajustar el espaciado, edita el archivo XML:
 ```
-static/src/scss/report_invoice_compact.scss
+views/report_invoice_compact.xml
 ```
 
-### Variables Principales
+Modifica estos valores en el bloque `<style>`:
 
-```scss
-$compact-padding: 1mm;      // Espaciado interno
-$compact-margin: 2mm;       // Margen entre secciones
-$minimal-gap: 0mm;          // Espacio mínimo
-$compact-line-height: 1.2;  // Altura de línea
+```css
+.header {
+    margin-bottom: 0mm;  /* Aumenta para más espacio después del header */
+}
+
+.article {
+    padding-top: 2mm;    /* Aumenta para más espacio antes del contenido */
+}
+
+div.page {
+    padding-top: 5mm;    /* Aumenta para más espacio en la página */
+}
 ```
 
 **Para aplicar cambios:**
 
 ```bash
-# Regenerar assets
+# Actualizar el módulo desde terminal
 ./odoo-bin -c /etc/odoo/odoo.conf -d tu_bd -u odoo_invoice_compact
 ```
 
@@ -146,7 +166,7 @@ O desde la interfaz web:
 1. Modo desarrollador activado
 2. Configuración → Técnico → Interfaz de usuario → Vistas
 3. Buscar vistas de `odoo_invoice_compact`
-4. Click en **Regenerar Assets**
+4. Editar la vista según necesites
 
 ---
 
@@ -198,27 +218,34 @@ ls -l /ruta/a/addons/odoo_invoice_compact/__manifest__.py
 tail -f /var/log/odoo/odoo-server.log
 ```
 
+### Error de XPath al instalar
+
+**Si ves el error:** `El elemento "<xpath expr="..." no se puede localizar`
+
+**Solución:** Asegúrate de estar usando la **versión 1.0.1 o superior**
+
+```bash
+cd /ruta/addons/odoo_invoice_compact/
+git pull origin main
+# Luego actualiza el módulo en Odoo
+```
+
 ### Los estilos no se aplican
 
 ```bash
-# Regenerar assets
+# Actualizar módulo desde terminal
 ./odoo-bin -c /etc/odoo/odoo.conf -d nombre_bd -u odoo_invoice_compact
 
 # Limpiar caché del navegador
 Ctrl + Shift + R (o Cmd + Shift + R en Mac)
 ```
 
-### Error al instalar
-
-- Verificar que el módulo `account` esté instalado
-- Verificar versión de Odoo: debe ser 18.0
-- Revisar logs para más detalles
-
 ---
 
 ## 🆘 Soporte
 
 - 📖 **Documentación**: [INSTALACION.md](INSTALACION.md)
+- 📋 **Changelog**: [CHANGELOG.md](CHANGELOG.md)
 - 🐛 **Issues**: [GitHub Issues](https://github.com/trixocom/odoo-invoice-compact-layout/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/trixocom/odoo-invoice-compact-layout/discussions)
 
@@ -279,6 +306,8 @@ Si este módulo te ayudó, considera:
 
 <div align="center">
 
-**Hecho con ❤️ para la comunidad Odoo**
+**Versión 1.0.1** | **Actualizado: 17 Oct 2025** | **Hecho con ❤️ para la comunidad Odoo**
+
+[⬆ Volver arriba](#invoice-compact-layout---odoo-18-)
 
 </div>
