@@ -1,6 +1,6 @@
 # 📦 Invoice Compact Layout - Odoo 18
 
-[![Version](https://img.shields.io/badge/version-18.0.1.0.7-blue.svg)](https://github.com/trixocom/odoo-invoice-compact-layout)
+[![Version](https://img.shields.io/badge/version-18.0.1.0.8-blue.svg)](https://github.com/trixocom/odoo-invoice-compact-layout)
 [![License: LGPL-3](https://img.shields.io/badge/license-LGPL--3-green.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Odoo](https://img.shields.io/badge/Odoo-18.0-purple.svg)](https://www.odoo.com)
 
@@ -8,9 +8,16 @@
 
 Reduce **drásticamente** el espacio entre el encabezado de la empresa y la información del cliente en los reportes de factura de Odoo 18, optimizando el uso del papel sin perder legibilidad.
 
-### ✨ Versión 1.0.7 - CORREGIDA ✅
+### 🔧 Versión 1.0.8 - CRITICAL FIX ✅
 
-**Cambio v1.0.7:** Corregido error de validación XML que impedía la instalación.
+**🚨 ERROR RESUELTO:** `Element odoo has extra content: template, line 16`
+
+Esta versión corrige el error de validación XML que impedía la instalación/actualización del módulo.
+
+**Cambio v1.0.8:**
+- ✅ Agregado tag `<data>` requerido por Odoo
+- ✅ Estructura XML ahora es 100% válida
+- ✅ El módulo se puede instalar/actualizar sin errores
 
 Esta versión está basada en el **análisis del código fuente REAL** de tus templates y aplica estrategias de compactación CSS ultra-agresivas.
 
@@ -68,19 +75,30 @@ docker-compose restart odoo
 - **Herencia limpia** mediante XPath
 - **Sobrescribe** customizaciones de Studio
 - **Fácil desinstalación**
+- **Estructura XML válida** ✓
 
 ## 🛠️ Solución de Problemas
 
-### Error al instalar
+### ⚠️ Error: "Element odoo has extra content: template"
 
-Si ves: `"Element odoo has extra content: template"`
-→ **Solución:** Usa la versión 1.0.7 (ya corregido)
+**✅ SOLUCIONADO en v1.0.8**
+
+Si aún ves este error:
+```bash
+cd /ruta/addons/odoo_invoice_compact
+git pull origin main
+```
+
+Luego en Odoo → Apps → Invoice Compact Layout → **Actualizar**
 
 ### No veo cambios
 
 1. Verifica instalación: **Apps** → "Invoice Compact" → debe decir "Instalado"
 2. Limpia caché: **Ctrl + F5** (Windows/Linux) o **Cmd + Shift + R** (Mac)
-3. Reinicia Odoo
+3. Reinicia Odoo:
+   ```bash
+   sudo systemctl restart odoo
+   ```
 4. Verifica templates: **Configuración** → **Técnico** → **Vistas** → buscar `report_invoice_copy_1_ultra_compact`
 
 ### Necesito MÁS compactación
@@ -99,8 +117,25 @@ odoo_invoice_compact/
 ├── __init__.py
 ├── __manifest__.py
 └── views/
-    └── report_invoice_compact.xml
+    └── report_invoice_compact.xml   (✅ Estructura XML corregida en v1.0.8)
 ```
+
+## 📊 Changelog
+
+### v1.0.8 (2025-10-17) - CRITICAL FIX
+- 🔧 **FIXED:** Agregado tag `<data>` requerido por validación XML
+- ✅ Resuelve: "Element odoo has extra content: template, line 16"
+- ✅ Módulo ahora se puede instalar/actualizar correctamente
+
+### v1.0.7 (2025-10-17)
+- 🔧 Corregido error de validación XML
+- ✅ Cambio de `position="replace"` a `position="after"`
+- ✅ CSS ahora se AGREGA en lugar de reemplazar
+
+### v1.0.0 (2025-10-17)
+- 🎉 Release inicial
+- ✅ Herencia de templates
+- ✅ CSS compacto para reportes
 
 ## 🔗 Links
 
@@ -121,3 +156,5 @@ LGPL-3.0
 ---
 
 ⭐ **Si este módulo te fue útil, dale una estrella en GitHub!**
+
+**Última actualización:** 2025-10-17 v1.0.8
