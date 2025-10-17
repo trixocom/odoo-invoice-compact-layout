@@ -2,12 +2,156 @@
 <odoo>
     
     <!-- ========================================================================
-         SOLUCIÓN DEFINITIVA v1.2.0 - MÚLTIPLES TEMPLATES
+         SOLUCIÓN DEFINITIVA v1.3.0 - CSS GLOBAL ULTRA-AGRESIVO
          
-         Intenta heredar de varios templates comunes de facturas en Odoo 18
+         Inyecta CSS directamente en el layout externo para afectar TODOS
+         los reportes de factura, incluyendo localizaciones
          ======================================================================== -->
     
-    <!-- Opción 1: Template report_invoice_document -->
+    <!-- Heredar del layout externo base para afectar TODOS los reportes -->
+    <record id="external_layout_standard_compact" model="ir.ui.view">
+        <field name="name">Compact Layout - Global CSS</field>
+        <field name="model">ir.ui.view</field>
+        <field name="inherit_id" ref="web.external_layout_standard"/>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <xpath expr="//head" position="inside">
+                <style type="text/css">
+                    /* ================================================================
+                       CSS ULTRA-AGRESIVO GLOBAL v1.3.0
+                       Se aplica a TODOS los reportes incluyendo localizaciones
+                       ================================================================ */
+                    
+                    /* Reset TOTAL del header */
+                    body header,
+                    body .header,
+                    header,
+                    .header,
+                    div.header {
+                        margin: 0mm !important;
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* Article ultra compacto */
+                    body main,
+                    body .article,
+                    main,
+                    .article,
+                    div.article {
+                        margin-top: 0mm !important;
+                        padding-top: 0mm !important;
+                    }
+                    
+                    /* Página compacta */
+                    body .page,
+                    .page,
+                    div.page {
+                        padding-top: 1mm !important;
+                        margin-top: 0mm !important;
+                    }
+                    
+                    /* Company info sin espacio */
+                    body .company_address,
+                    .company_address,
+                    body .address,
+                    .address {
+                        margin: 0mm !important;
+                        padding: 0mm !important;
+                        line-height: 1.0 !important;
+                    }
+                    
+                    /* Rows compactas - CRÍTICO */
+                    body .row,
+                    .row,
+                    div.row {
+                        margin: 0mm !important;
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* Anular TODOS los margins Bootstrap */
+                    .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
+                    .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
+                    .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
+                    .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                    }
+                    
+                    /* Anular TODOS los paddings Bootstrap */
+                    .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
+                    .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
+                    .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
+                    .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* Divs vacíos */
+                    div:empty {
+                        display: none !important;
+                        height: 0 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    /* Line height general */
+                    body, div, span, p {
+                        line-height: 1.1 !important;
+                    }
+                    
+                    /* Headers y párrafos sin espacio */
+                    h1, h2, h3, h4, h5, h6, p {
+                        margin: 0mm !important;
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                    }
+                    
+                    /* BR compactos */
+                    br {
+                        line-height: 0.3 !important;
+                        margin: 0 !important;
+                    }
+                    
+                    /* Tablas optimizadas */
+                    table {
+                        margin: 1mm 0mm !important;
+                        border-collapse: collapse !important;
+                    }
+                    
+                    table thead th,
+                    table tbody td {
+                        padding: 1mm 2mm !important;
+                        line-height: 1.1 !important;
+                    }
+                    
+                    /* Layout container sin espacio */
+                    .o_report_layout_standard,
+                    #wrapwrap {
+                        padding-top: 0mm !important;
+                        margin-top: 0mm !important;
+                    }
+                    
+                    /* Container bootstrap */
+                    .container,
+                    .container-fluid {
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                </style>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- También heredar del report_invoice_document por si acaso -->
     <record id="report_invoice_document_compact" model="ir.ui.view">
         <field name="name">Invoice Compact - Document</field>
         <field name="model">account.move</field>
@@ -16,31 +160,9 @@
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('page')]" position="inside">
                 <style type="text/css">
-                    /* Reset espaciado */
+                    /* CSS adicional para report_invoice_document */
                     .header { margin: 0mm !important; padding: 0mm !important; }
                     .article { margin-top: 0mm !important; padding-top: 0mm !important; }
-                    .page { padding-top: 1mm !important; }
-                    .row { margin: 0mm !important; padding: 0mm !important; }
-                    
-                    /* Bootstrap reset */
-                    .m-0, .m-1, .m-2, .m-3, .mt-0, .mt-1, .mt-2, .mt-3,
-                    .mb-0, .mb-1, .mb-2, .mb-3, .my-0, .my-1, .my-2, .my-3 {
-                        margin-top: 0mm !important; margin-bottom: 0mm !important;
-                    }
-                    
-                    .p-0, .p-1, .p-2, .p-3, .pt-0, .pt-1, .pt-2, .pt-3,
-                    .pb-0, .pb-1, .pb-2, .pb-3, .py-0, .py-1, .py-2, .py-3 {
-                        padding-top: 0mm !important; padding-bottom: 0mm !important;
-                    }
-                    
-                    /* Elementos */
-                    div:empty { display: none !important; }
-                    body, div, span, p { line-height: 1.1 !important; }
-                    h1, h2, h3, h4, h5, h6, p { margin: 0mm !important; padding: 0mm !important; }
-                    
-                    /* Tablas */
-                    table { margin: 1mm 0mm !important; }
-                    table thead th, table tbody td { padding: 1mm 2mm !important; }
                 </style>
             </xpath>
         </field>
