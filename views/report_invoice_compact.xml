@@ -2,35 +2,30 @@
 <odoo>
     
     <!-- ========================================================================
-         SOLUCIÓN DEFINITIVA v1.0.6
+         SOLUCIÓN DEFINITIVA v1.0.7 - CORREGIDA
          
          Basado en el código fuente real compartido:
          - account.report_invoice_copy_1 (template principal)
          - account.report_invoice_document_copy_1 
          - l10n_ar.report_invoice_document_copy_1
          
-         Este módulo hereda de los templates EXACTOS que usas y reemplaza
-         el CSS existente con uno ultra-específico que sobrescribe TODO,
-         incluyendo las customizaciones de Studio.
+         Cambio v1.0.7: Corregido error de validación XML
          ======================================================================== -->
     
-    <!-- Template 1: Heredar del template principal que contiene el loop -->
+    <!-- Template 1: Heredar del template principal y AGREGAR CSS adicional -->
     <template id="report_invoice_copy_1_ultra_compact" inherit_id="account.report_invoice_copy_1" priority="999">
         
-        <!-- Reemplazar el style existente con nuestro CSS mejorado -->
-        <xpath expr="//style" position="replace">
+        <!-- Agregar CSS DESPUÉS del style existente -->
+        <xpath expr="//style" position="after">
             <style type="text/css">
                 /* ================================================================
-                   CSS ULTRA ESPECÍFICO CON MÁXIMA PRIORIDAD
+                   CSS ULTRA ESPECÍFICO CON MÁXIMA PRIORIDAD v1.0.7
                    
-                   Este CSS sobrescribe TODOS los estilos, incluyendo:
-                   - CSS inline
-                   - Estilos de Bootstrap  
-                   - Customizaciones de Studio
-                   - Cualquier otro CSS en el documento
+                   Este CSS se AGREGA al existente y lo sobrescribe usando
+                   selectores más específicos con !important
                    ================================================================ */
                 
-                /* ==== ESTRATEGIA 1: Reset completo del header ==== */
+                /* ==== Reset TOTAL del header ==== */
                 body .header,
                 body div.header,
                 html body .header,
@@ -45,7 +40,7 @@
                     padding-bottom: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 2: Forzar padding mínimo en article ==== */
+                /* ==== Article ultra compacto ==== */
                 body .article,
                 body div.article,
                 html body .article,
@@ -55,10 +50,10 @@
                 div[class*="article"] {
                     margin-top: 0mm !important;
                     margin-bottom: 0mm !important;
-                    padding-top: 1mm !important;
+                    padding-top: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 3: Compactar la página ==== */
+                /* ==== Página compacta ==== */
                 body .page,
                 body div.page,
                 html body .page,
@@ -66,10 +61,10 @@
                 .page,
                 div.page,
                 div[class*="page"] {
-                    padding-top: 2mm !important;
+                    padding-top: 1mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 4: Eliminar espacio después de company info ==== */
+                /* ==== Company address sin espacio ==== */
                 body .company_address,
                 body div.company_address,
                 body .address,
@@ -82,10 +77,10 @@
                     margin-bottom: 0mm !important;
                     padding: 0mm !important;
                     padding-bottom: 0mm !important;
-                    line-height: 1.1 !important;
+                    line-height: 1.0 !important;
                 }
                 
-                /* ==== ESTRATEGIA 5: Compactar TODAS las rows ==== */
+                /* ==== TODAS las rows compactas ==== */
                 body .row,
                 body div.row,
                 html body .row,
@@ -94,12 +89,12 @@
                 div.row,
                 div[class*="row"] {
                     margin-top: 0mm !important;
-                    margin-bottom: 1mm !important;
+                    margin-bottom: 0mm !important;
                     padding-top: 0mm !important;
                     padding-bottom: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 6: Anular TODOS los margins de Bootstrap ==== */
+                /* ==== Anular TODOS los margins Bootstrap ==== */
                 body .m-0, body .m-1, body .m-2, body .m-3, body .m-4, body .m-5,
                 body .mt-0, body .mt-1, body .mt-2, body .mt-3, body .mt-4, body .mt-5,
                 body .mb-0, body .mb-1, body .mb-2, body .mb-3, body .mb-4, body .mb-5,
@@ -108,11 +103,11 @@
                 .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
                 .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
                 .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
-                    margin-top: 1mm !important;
-                    margin-bottom: 1mm !important;
+                    margin-top: 0mm !important;
+                    margin-bottom: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 7: Anular TODOS los paddings de Bootstrap ==== */
+                /* ==== Anular TODOS los paddings Bootstrap ==== */
                 body .p-0, body .p-1, body .p-2, body .p-3, body .p-4, body .p-5,
                 body .pt-0, body .pt-1, body .pt-2, body .pt-3, body .pt-4, body .pt-5,
                 body .pb-0, body .pb-1, body .pb-2, body .pb-3, body .pb-4, body .pb-5,
@@ -125,17 +120,17 @@
                     padding-bottom: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 8: Compactar elementos específicos del reporte ==== */
+                /* ==== Elementos específicos ==== */
                 body #informations,
                 body div[id="informations"],
                 #informations,
                 div[id="informations"] {
-                    margin-top: 1mm !important;
-                    margin-bottom: 1mm !important;
+                    margin-top: 0mm !important;
+                    margin-bottom: 0mm !important;
                     padding-top: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 9: Ocultar divs vacíos ==== */
+                /* ==== Ocultar divs vacíos ==== */
                 body div:empty,
                 div:empty {
                     display: none !important;
@@ -144,7 +139,7 @@
                     height: 0 !important;
                 }
                 
-                /* ==== ESTRATEGIA 10: Compactar oe_structure (Studio) ==== */
+                /* ==== Compactar oe_structure (Studio) ==== */
                 body .oe_structure,
                 body div.oe_structure,
                 .oe_structure,
@@ -155,56 +150,56 @@
                     min-height: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 11: Compactar br tags ==== */
+                /* ==== BR tags compactos ==== */
                 body br,
                 br {
-                    line-height: 0.5 !important;
+                    line-height: 0.3 !important;
                     margin: 0 !important;
                     padding: 0 !important;
+                    display: inline !important;
                 }
                 
-                /* ==== ESTRATEGIA 12: Line height general ==== */
+                /* ==== Line height general ==== */
                 body, body div, body span, body p,
                 div, span, p {
-                    line-height: 1.2 !important;
+                    line-height: 1.1 !important;
                 }
                 
-                /* ==== ESTRATEGIA 13: Compactar headers/títulos ==== */
+                /* ==== Headers compactos ==== */
                 body h1, body h2, body h3, body h4, body h5, body h6,
                 h1, h2, h3, h4, h5, h6 {
-                    margin: 1mm 0mm !important;
+                    margin: 0mm !important;
                     padding: 0mm !important;
-                    line-height: 1.2 !important;
+                    line-height: 1.1 !important;
                 }
                 
-                /* ==== ESTRATEGIA 14: Compactar párrafos ==== */
+                /* ==== Párrafos compactos ==== */
                 body p,
                 p {
                     margin: 0mm !important;
-                    margin-bottom: 1mm !important;
                     padding: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 15: Optimizar tablas ==== */
+                /* ==== Tablas optimizadas ==== */
                 body table,
                 body table.table,
                 table,
                 table.table {
-                    margin: 2mm 0mm !important;
+                    margin: 1mm 0mm !important;
                     border-collapse: collapse !important;
                 }
                 
                 body table thead th,
                 table thead th {
                     padding: 1mm 2mm !important;
-                    line-height: 1.2 !important;
+                    line-height: 1.1 !important;
                     vertical-align: middle !important;
                 }
                 
                 body table tbody td,
                 table tbody td {
                     padding: 1mm 2mm !important;
-                    line-height: 1.2 !important;
+                    line-height: 1.1 !important;
                     vertical-align: middle !important;
                 }
                 
@@ -213,7 +208,7 @@
                     padding: 1mm 2mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 16: Compactar elementos de dirección ==== */
+                /* ==== Direcciones compactas ==== */
                 body div[name*="address"],
                 div[name*="address"],
                 body div[name="address_not_same_as_shipping"],
@@ -222,12 +217,12 @@
                 div[name="address_not_same_as_shipping"],
                 div[name="address_same_as_shipping"],
                 div[name="no_shipping"] {
-                    margin-top: 1mm !important;
+                    margin-top: 0mm !important;
                     margin-bottom: 0mm !important;
                     padding: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 17: Forzar compactación en external_layout ==== */
+                /* ==== External layout ==== */
                 body div[t-call="web.external_layout"],
                 div[t-call="web.external_layout"],
                 body .o_report_layout_standard,
@@ -236,7 +231,7 @@
                     margin-top: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 18: Compactar containers ==== */
+                /* ==== Containers ==== */
                 body .container,
                 body .container-fluid,
                 body div.container,
@@ -244,23 +239,23 @@
                 .container,
                 .container-fluid {
                     padding-top: 0mm !important;
-                    padding-bottom: 1mm !important;
+                    padding-bottom: 0mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 19: Reducir espacios en payment_term ==== */
+                /* ==== Payment term ==== */
                 body #payment_term,
                 body div[id="payment_term"],
                 #payment_term,
                 div[id="payment_term"] {
-                    margin-top: 2mm !important;
+                    margin-top: 1mm !important;
                 }
                 
-                /* ==== ESTRATEGIA 20: Reducir espacios en right-elements ==== */
+                /* ==== Right elements ==== */
                 body #right-elements,
                 body div[id="right-elements"],
                 #right-elements,
                 div[id="right-elements"] {
-                    margin-top: 1mm !important;
+                    margin-top: 0mm !important;
                 }
             </style>
         </xpath>
@@ -270,12 +265,12 @@
     <!-- Template 2: Heredar del template de account (sin localización) -->
     <template id="report_invoice_document_copy_1_ultra_compact" inherit_id="account.report_invoice_document_copy_1" priority="999" optional="enabled">
         
-        <!-- Agregar CSS adicional ANTES del contenido -->
+        <!-- Agregar CSS ANTES del contenido -->
         <xpath expr="//t[@t-call='web.external_layout']" position="before">
             <style type="text/css">
                 /* CSS específico para account.report_invoice_document_copy_1 */
                 .header { margin: 0 !important; padding: 0 !important; }
-                .article { margin-top: 0 !important; padding-top: 1mm !important; }
+                .article { margin-top: 0 !important; padding-top: 0mm !important; }
             </style>
         </xpath>
         
@@ -284,12 +279,12 @@
     <!-- Template 3: Heredar del template de localización argentina -->
     <template id="l10n_ar_report_invoice_document_copy_1_ultra_compact" inherit_id="l10n_ar.report_invoice_document_copy_1" priority="999" optional="enabled">
         
-        <!-- Agregar CSS adicional ANTES del contenido -->
+        <!-- Agregar CSS ANTES del contenido -->
         <xpath expr="//t[@t-call='web.external_layout']" position="before">
             <style type="text/css">
                 /* CSS específico para l10n_ar.report_invoice_document_copy_1 */
                 .header { margin: 0 !important; padding: 0 !important; }
-                .article { margin-top: 0 !important; padding-top: 1mm !important; }
+                .article { margin-top: 0 !important; padding-top: 0mm !important; }
             </style>
         </xpath>
         
