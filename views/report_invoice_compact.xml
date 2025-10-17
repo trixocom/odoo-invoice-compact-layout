@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- ============================================ -->
+    <!-- Invoice Compact Layout - Report Inheritance -->
+    <!-- ============================================ -->
+    
+    <!-- Herencia del reporte principal de factura -->
+    <template id="report_invoice_document_compact" inherit_id="account.report_invoice_document" priority="99">
+        
+        <!-- Inyectar CSS de compactación -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="before">
+            <style type="text/css">
+                /* ============================================ */
+                /* INVOICE COMPACT LAYOUT - OPTIMIZACIÓN       */
+                /* ============================================ */
+                
+                /* === 1. COMPACTAR HEADER === */
+                .header, div.header {
+                    margin: 0 !important;
+                    padding: 0 0 1mm 0 !important;
+                }
+                
+                .article, .page, div.article {
+                    margin-top: 0 !important;
+                    padding-top: 2mm !important;
+                }
+                
+                .company_address {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    line-height: 1.1em !important;
+                }
+                
+                /* === 2. REDUCIR ESPACIO ANTES DEL CLIENTE === */
+                .address.row {
+                    margin-top: 2mm !important;
+                    padding-top: 0 !important;
+                }
+                
+                /* Anular márgenes de Bootstrap */
+                .mt-4 { margin-top: 2mm !important; }
+                .mt-5 { margin-top: 2mm !important; }
+                .mb-4 { margin-bottom: 2mm !important; }
+                .mb-5 { margin-bottom: 2mm !important; }
+                
+                /* Ocultar elementos vacíos */
+                div:empty { display: none !important; }
+                
+                /* Compactar texto del header */
+                .header p, .header div, .header span {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    line-height: 1.2em !important;
+                }
+                
+                /* === 3. COMPACTAR TABLA DE PRODUCTOS === */
+                table, table.table, table.o_main_table {
+                    margin: 3mm 0 !important;
+                    border-collapse: collapse !important;
+                }
+                
+                /* Celdas compactas */
+                table td, table th {
+                    padding: 1mm 2mm !important;
+                    line-height: 1.1em !important;
+                    vertical-align: middle !important;
+                    margin: 0 !important;
+                }
+                
+                /* Header de tabla */
+                table thead th {
+                    padding: 1.5mm 2mm !important;
+                    font-size: 9pt !important;
+                    line-height: 1.1em !important;
+                    font-weight: bold !important;
+                }
+                
+                /* Eliminar espacios entre filas */
+                table tbody tr {
+                    border-spacing: 0 !important;
+                    margin: 0 !important;
+                }
+                
+                table tbody tr td {
+                    margin: 0 !important;
+                }
+                
+                /* Contenido dentro de celdas */
+                table td span,
+                table td div,
+                table td p {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    line-height: 1.1em !important;
+                }
+                
+                /* === 4. ALINEACIÓN DE COLUMNAS === */
+                
+                /* Primera columna (descripción) a la izquierda */
+                table tbody td:first-child {
+                    text-align: left !important;
+                    padding-left: 2mm !important;
+                    line-height: 1.2em !important;
+                }
+                
+                /* Otras columnas (números) a la derecha */
+                table tbody td:not(:first-child) {
+                    text-align: right !important;
+                    white-space: nowrap !important;
+                }
+                
+                /* === 5. TOTALES === */
+                table tfoot td,
+                table tfoot th {
+                    padding: 2mm !important;
+                    font-weight: bold !important;
+                    border-top: 2pt solid #333 !important;
+                }
+                
+                /* === 6. BORDES === */
+                table.table-bordered td,
+                table.table-bordered th {
+                    border-width: 0.5pt !important;
+                    border-color: #ddd !important;
+                }
+                
+                /* === 7. AJUSTES GENERALES === */
+                
+                /* Reducir tamaño de fuente ligeramente */
+                body, .page {
+                    font-size: 9.5pt !important;
+                }
+                
+                /* Mantener títulos normales */
+                h1, h2, h3, h4, h5, h6, strong {
+                    font-size: 10pt !important;
+                }
+                
+                /* Compactar párrafos */
+                p {
+                    margin-top: 1mm !important;
+                    margin-bottom: 1mm !important;
+                    line-height: 1.3em !important;
+                }
+                
+                /* Información del cliente */
+                .invoice_partner_info,
+                .partner_address {
+                    margin: 2mm 0 !important;
+                    padding: 0 !important;
+                    line-height: 1.3em !important;
+                }
+                
+                /* Sección de totales */
+                .total_section {
+                    margin: 2mm 0 !important;
+                    padding: 2mm !important;
+                }
+                
+                /* === 8. CONFIGURACIÓN DE PÁGINA === */
+                @page {
+                    margin-top: 8mm !important;
+                    margin-bottom: 8mm !important;
+                }
+                
+                /* ============================================ */
+                /* FIN DE OPTIMIZACIÓN                         */
+                /* ============================================ */
+            </style>
+        </xpath>
+        
+    </template>
+    
+    
+    <!-- Herencia del layout externo para compactar header -->
+    <template id="external_layout_compact" inherit_id="web.external_layout_standard" priority="99">
+        
+        <xpath expr="//div[@class='header']" position="attributes">
+            <attribute name="style">margin: 0 !important; padding: 0 !important;</attribute>
+        </xpath>
+        
+        <xpath expr="//div[@class='article o_report_layout_standard']" position="attributes">
+            <attribute name="style">margin-top: 0 !important; padding-top: 0 !important;</attribute>
+        </xpath>
+        
+    </template>
+    
+</odoo>
