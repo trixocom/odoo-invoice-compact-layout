@@ -1,6 +1,6 @@
 {
     'name': 'Invoice Compact Layout',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'category': 'Accounting/Accounting',
     'summary': 'Reduce spacing in invoice reports for better paper usage',
     'description': """
@@ -13,22 +13,23 @@
         - Mantener la legibilidad del documento
         
         Características:
-        - Espaciado compacto entre secciones
+        - Espaciado compacto entre secciones mediante CSS
         - Tablas optimizadas
         - Compatible con Odoo 18
+        - Approach simplificado para máxima compatibilidad
+        
+        Changelog v1.0.1:
+        - Corregido: Uso de XPath simplificado para mejor compatibilidad
+        - Mejorado: CSS inline en lugar de archivo SCSS
+        - Optimizado: Prioridad 99 para evitar conflictos
     """,
-    'author': 'Tu Empresa',
+    'author': 'TrixoCom',
     'website': 'https://github.com/trixocom/odoo-invoice-compact-layout',
     'license': 'LGPL-3',
     'depends': ['account'],
     'data': [
         'views/report_invoice_compact.xml',
     ],
-    'assets': {
-        'web.report_assets_common': [
-            'odoo_invoice_compact/static/src/scss/report_invoice_compact.scss',
-        ],
-    },
     'installable': True,
     'application': False,
     'auto_install': False,
