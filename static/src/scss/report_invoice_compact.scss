@@ -1,0 +1,67 @@
+/* ============================================ */
+/* Invoice Compact Layout - SCSS               */
+/* ============================================ */
+
+// Variables
+$compact-padding: 1mm;
+$compact-margin: 2mm;
+$compact-line-height: 1.1em;
+$compact-font-size: 9.5pt;
+
+// Mixins
+@mixin compact-spacing {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+@mixin compact-table-cell {
+    padding: $compact-padding 2mm !important;
+    line-height: $compact-line-height !important;
+    vertical-align: middle !important;
+}
+
+// Global report optimizations
+.o_report_layout_standard {
+    
+    // Compact header
+    .header {
+        @include compact-spacing;
+        padding-bottom: 1mm !important;
+    }
+    
+    // Compact article
+    .article {
+        margin-top: 0 !important;
+        padding-top: $compact-margin !important;
+    }
+    
+    // Compact tables
+    table {
+        margin: 3mm 0 !important;
+        border-collapse: collapse !important;
+        
+        td, th {
+            @include compact-table-cell;
+        }
+        
+        thead th {
+            font-size: 9pt !important;
+            font-weight: bold !important;
+        }
+        
+        tbody {
+            td:first-child {
+                text-align: left !important;
+            }
+            
+            td:not(:first-child) {
+                text-align: right !important;
+            }
+        }
+        
+        tfoot td {
+            padding: $compact-margin !important;
+            font-weight: bold !important;
+        }
+    }
+}
