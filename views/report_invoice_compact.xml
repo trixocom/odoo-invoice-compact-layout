@@ -1,293 +1,294 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
-    <!-- ========================================================================
-         SOLUCIÓN DEFINITIVA v1.0.7 - CORREGIDA
-         
-         Basado en el código fuente real compartido:
-         - account.report_invoice_copy_1 (template principal)
-         - account.report_invoice_document_copy_1 
-         - l10n_ar.report_invoice_document_copy_1
-         
-         Cambio v1.0.7: Corregido error de validación XML
-         ======================================================================== -->
-    
-    <!-- Template 1: Heredar del template principal y AGREGAR CSS adicional -->
-    <template id="report_invoice_copy_1_ultra_compact" inherit_id="account.report_invoice_copy_1" priority="999">
+    <data>
+        <!-- ========================================================================
+             SOLUCIÓN DEFINITIVA v1.0.8 - ESTRUCTURA CORREGIDA
+             
+             Basado en el código fuente real compartido:
+             - account.report_invoice_copy_1 (template principal)
+             - account.report_invoice_document_copy_1 
+             - l10n_ar.report_invoice_document_copy_1
+             
+             Cambio v1.0.8: Agregado tag <data> requerido por Odoo
+             ======================================================================== -->
         
-        <!-- Agregar CSS DESPUÉS del style existente -->
-        <xpath expr="//style" position="after">
-            <style type="text/css">
-                /* ================================================================
-                   CSS ULTRA ESPECÍFICO CON MÁXIMA PRIORIDAD v1.0.7
-                   
-                   Este CSS se AGREGA al existente y lo sobrescribe usando
-                   selectores más específicos con !important
-                   ================================================================ */
-                
-                /* ==== Reset TOTAL del header ==== */
-                body .header,
-                body div.header,
-                html body .header,
-                html body div.header,
-                .header,
-                div.header {
-                    margin: 0mm !important;
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding: 0mm !important;
-                    padding-top: 0mm !important;
-                    padding-bottom: 0mm !important;
-                }
-                
-                /* ==== Article ultra compacto ==== */
-                body .article,
-                body div.article,
-                html body .article,
-                html body div.article,
-                .article,
-                div.article,
-                div[class*="article"] {
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding-top: 0mm !important;
-                }
-                
-                /* ==== Página compacta ==== */
-                body .page,
-                body div.page,
-                html body .page,
-                html body div.page,
-                .page,
-                div.page,
-                div[class*="page"] {
-                    padding-top: 1mm !important;
-                }
-                
-                /* ==== Company address sin espacio ==== */
-                body .company_address,
-                body div.company_address,
-                body .address,
-                body div.address,
-                html body .company_address,
-                html body div.address,
-                .company_address,
-                .address {
-                    margin: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding: 0mm !important;
-                    padding-bottom: 0mm !important;
-                    line-height: 1.0 !important;
-                }
-                
-                /* ==== TODAS las rows compactas ==== */
-                body .row,
-                body div.row,
-                html body .row,
-                html body div.row,
-                .row,
-                div.row,
-                div[class*="row"] {
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding-top: 0mm !important;
-                    padding-bottom: 0mm !important;
-                }
-                
-                /* ==== Anular TODOS los margins Bootstrap ==== */
-                body .m-0, body .m-1, body .m-2, body .m-3, body .m-4, body .m-5,
-                body .mt-0, body .mt-1, body .mt-2, body .mt-3, body .mt-4, body .mt-5,
-                body .mb-0, body .mb-1, body .mb-2, body .mb-3, body .mb-4, body .mb-5,
-                body .my-0, body .my-1, body .my-2, body .my-3, body .my-4, body .my-5,
-                .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
-                .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
-                .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
-                .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                }
-                
-                /* ==== Anular TODOS los paddings Bootstrap ==== */
-                body .p-0, body .p-1, body .p-2, body .p-3, body .p-4, body .p-5,
-                body .pt-0, body .pt-1, body .pt-2, body .pt-3, body .pt-4, body .pt-5,
-                body .pb-0, body .pb-1, body .pb-2, body .pb-3, body .pb-4, body .pb-5,
-                body .py-0, body .py-1, body .py-2, body .py-3, body .py-4, body .py-5,
-                .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
-                .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
-                .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
-                .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
-                    padding-top: 0mm !important;
-                    padding-bottom: 0mm !important;
-                }
-                
-                /* ==== Elementos específicos ==== */
-                body #informations,
-                body div[id="informations"],
-                #informations,
-                div[id="informations"] {
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding-top: 0mm !important;
-                }
-                
-                /* ==== Ocultar divs vacíos ==== */
-                body div:empty,
-                div:empty {
-                    display: none !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    height: 0 !important;
-                }
-                
-                /* ==== Compactar oe_structure (Studio) ==== */
-                body .oe_structure,
-                body div.oe_structure,
-                .oe_structure,
-                div.oe_structure,
-                div[class*="oe_structure"] {
-                    margin: 0mm !important;
-                    padding: 0mm !important;
-                    min-height: 0mm !important;
-                }
-                
-                /* ==== BR tags compactos ==== */
-                body br,
-                br {
-                    line-height: 0.3 !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    display: inline !important;
-                }
-                
-                /* ==== Line height general ==== */
-                body, body div, body span, body p,
-                div, span, p {
-                    line-height: 1.1 !important;
-                }
-                
-                /* ==== Headers compactos ==== */
-                body h1, body h2, body h3, body h4, body h5, body h6,
-                h1, h2, h3, h4, h5, h6 {
-                    margin: 0mm !important;
-                    padding: 0mm !important;
-                    line-height: 1.1 !important;
-                }
-                
-                /* ==== Párrafos compactos ==== */
-                body p,
-                p {
-                    margin: 0mm !important;
-                    padding: 0mm !important;
-                }
-                
-                /* ==== Tablas optimizadas ==== */
-                body table,
-                body table.table,
-                table,
-                table.table {
-                    margin: 1mm 0mm !important;
-                    border-collapse: collapse !important;
-                }
-                
-                body table thead th,
-                table thead th {
-                    padding: 1mm 2mm !important;
-                    line-height: 1.1 !important;
-                    vertical-align: middle !important;
-                }
-                
-                body table tbody td,
-                table tbody td {
-                    padding: 1mm 2mm !important;
-                    line-height: 1.1 !important;
-                    vertical-align: middle !important;
-                }
-                
-                body table tfoot td,
-                table tfoot td {
-                    padding: 1mm 2mm !important;
-                }
-                
-                /* ==== Direcciones compactas ==== */
-                body div[name*="address"],
-                div[name*="address"],
-                body div[name="address_not_same_as_shipping"],
-                body div[name="address_same_as_shipping"],
-                body div[name="no_shipping"],
-                div[name="address_not_same_as_shipping"],
-                div[name="address_same_as_shipping"],
-                div[name="no_shipping"] {
-                    margin-top: 0mm !important;
-                    margin-bottom: 0mm !important;
-                    padding: 0mm !important;
-                }
-                
-                /* ==== External layout ==== */
-                body div[t-call="web.external_layout"],
-                div[t-call="web.external_layout"],
-                body .o_report_layout_standard,
-                .o_report_layout_standard {
-                    padding-top: 0mm !important;
-                    margin-top: 0mm !important;
-                }
-                
-                /* ==== Containers ==== */
-                body .container,
-                body .container-fluid,
-                body div.container,
-                body div.container-fluid,
-                .container,
-                .container-fluid {
-                    padding-top: 0mm !important;
-                    padding-bottom: 0mm !important;
-                }
-                
-                /* ==== Payment term ==== */
-                body #payment_term,
-                body div[id="payment_term"],
-                #payment_term,
-                div[id="payment_term"] {
-                    margin-top: 1mm !important;
-                }
-                
-                /* ==== Right elements ==== */
-                body #right-elements,
-                body div[id="right-elements"],
-                #right-elements,
-                div[id="right-elements"] {
-                    margin-top: 0mm !important;
-                }
-            </style>
-        </xpath>
+        <!-- Template 1: Heredar del template principal y AGREGAR CSS adicional -->
+        <template id="report_invoice_copy_1_ultra_compact" inherit_id="account.report_invoice_copy_1" priority="999">
+            
+            <!-- Agregar CSS DESPUÉS del style existente -->
+            <xpath expr="//style" position="after">
+                <style type="text/css">
+                    /* ================================================================
+                       CSS ULTRA ESPECÍFICO CON MÁXIMA PRIORIDAD v1.0.8
+                       
+                       Este CSS se AGREGA al existente y lo sobrescribe usando
+                       selectores más específicos con !important
+                       ================================================================ */
+                    
+                    /* ==== Reset TOTAL del header ==== */
+                    body .header,
+                    body div.header,
+                    html body .header,
+                    html body div.header,
+                    .header,
+                    div.header {
+                        margin: 0mm !important;
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* ==== Article ultra compacto ==== */
+                    body .article,
+                    body div.article,
+                    html body .article,
+                    html body div.article,
+                    .article,
+                    div.article,
+                    div[class*="article"] {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding-top: 0mm !important;
+                    }
+                    
+                    /* ==== Página compacta ==== */
+                    body .page,
+                    body div.page,
+                    html body .page,
+                    html body div.page,
+                    .page,
+                    div.page,
+                    div[class*="page"] {
+                        padding-top: 1mm !important;
+                    }
+                    
+                    /* ==== Company address sin espacio ==== */
+                    body .company_address,
+                    body div.company_address,
+                    body .address,
+                    body div.address,
+                    html body .company_address,
+                    html body div.address,
+                    .company_address,
+                    .address {
+                        margin: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                        padding-bottom: 0mm !important;
+                        line-height: 1.0 !important;
+                    }
+                    
+                    /* ==== TODAS las rows compactas ==== */
+                    body .row,
+                    body div.row,
+                    html body .row,
+                    html body div.row,
+                    .row,
+                    div.row,
+                    div[class*="row"] {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* ==== Anular TODOS los margins Bootstrap ==== */
+                    body .m-0, body .m-1, body .m-2, body .m-3, body .m-4, body .m-5,
+                    body .mt-0, body .mt-1, body .mt-2, body .mt-3, body .mt-4, body .mt-5,
+                    body .mb-0, body .mb-1, body .mb-2, body .mb-3, body .mb-4, body .mb-5,
+                    body .my-0, body .my-1, body .my-2, body .my-3, body .my-4, body .my-5,
+                    .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
+                    .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
+                    .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
+                    .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                    }
+                    
+                    /* ==== Anular TODOS los paddings Bootstrap ==== */
+                    body .p-0, body .p-1, body .p-2, body .p-3, body .p-4, body .p-5,
+                    body .pt-0, body .pt-1, body .pt-2, body .pt-3, body .pt-4, body .pt-5,
+                    body .pb-0, body .pb-1, body .pb-2, body .pb-3, body .pb-4, body .pb-5,
+                    body .py-0, body .py-1, body .py-2, body .py-3, body .py-4, body .py-5,
+                    .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
+                    .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
+                    .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
+                    .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* ==== Elementos específicos ==== */
+                    body #informations,
+                    body div[id="informations"],
+                    #informations,
+                    div[id="informations"] {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding-top: 0mm !important;
+                    }
+                    
+                    /* ==== Ocultar divs vacíos ==== */
+                    body div:empty,
+                    div:empty {
+                        display: none !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        height: 0 !important;
+                    }
+                    
+                    /* ==== Compactar oe_structure (Studio) ==== */
+                    body .oe_structure,
+                    body div.oe_structure,
+                    .oe_structure,
+                    div.oe_structure,
+                    div[class*="oe_structure"] {
+                        margin: 0mm !important;
+                        padding: 0mm !important;
+                        min-height: 0mm !important;
+                    }
+                    
+                    /* ==== BR tags compactos ==== */
+                    body br,
+                    br {
+                        line-height: 0.3 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        display: inline !important;
+                    }
+                    
+                    /* ==== Line height general ==== */
+                    body, body div, body span, body p,
+                    div, span, p {
+                        line-height: 1.1 !important;
+                    }
+                    
+                    /* ==== Headers compactos ==== */
+                    body h1, body h2, body h3, body h4, body h5, body h6,
+                    h1, h2, h3, h4, h5, h6 {
+                        margin: 0mm !important;
+                        padding: 0mm !important;
+                        line-height: 1.1 !important;
+                    }
+                    
+                    /* ==== Párrafos compactos ==== */
+                    body p,
+                    p {
+                        margin: 0mm !important;
+                        padding: 0mm !important;
+                    }
+                    
+                    /* ==== Tablas optimizadas ==== */
+                    body table,
+                    body table.table,
+                    table,
+                    table.table {
+                        margin: 1mm 0mm !important;
+                        border-collapse: collapse !important;
+                    }
+                    
+                    body table thead th,
+                    table thead th {
+                        padding: 1mm 2mm !important;
+                        line-height: 1.1 !important;
+                        vertical-align: middle !important;
+                    }
+                    
+                    body table tbody td,
+                    table tbody td {
+                        padding: 1mm 2mm !important;
+                        line-height: 1.1 !important;
+                        vertical-align: middle !important;
+                    }
+                    
+                    body table tfoot td,
+                    table tfoot td {
+                        padding: 1mm 2mm !important;
+                    }
+                    
+                    /* ==== Direcciones compactas ==== */
+                    body div[name*="address"],
+                    div[name*="address"],
+                    body div[name="address_not_same_as_shipping"],
+                    body div[name="address_same_as_shipping"],
+                    body div[name="no_shipping"],
+                    div[name="address_not_same_as_shipping"],
+                    div[name="address_same_as_shipping"],
+                    div[name="no_shipping"] {
+                        margin-top: 0mm !important;
+                        margin-bottom: 0mm !important;
+                        padding: 0mm !important;
+                    }
+                    
+                    /* ==== External layout ==== */
+                    body div[t-call="web.external_layout"],
+                    div[t-call="web.external_layout"],
+                    body .o_report_layout_standard,
+                    .o_report_layout_standard {
+                        padding-top: 0mm !important;
+                        margin-top: 0mm !important;
+                    }
+                    
+                    /* ==== Containers ==== */
+                    body .container,
+                    body .container-fluid,
+                    body div.container,
+                    body div.container-fluid,
+                    .container,
+                    .container-fluid {
+                        padding-top: 0mm !important;
+                        padding-bottom: 0mm !important;
+                    }
+                    
+                    /* ==== Payment term ==== */
+                    body #payment_term,
+                    body div[id="payment_term"],
+                    #payment_term,
+                    div[id="payment_term"] {
+                        margin-top: 1mm !important;
+                    }
+                    
+                    /* ==== Right elements ==== */
+                    body #right-elements,
+                    body div[id="right-elements"],
+                    #right-elements,
+                    div[id="right-elements"] {
+                        margin-top: 0mm !important;
+                    }
+                </style>
+            </xpath>
+            
+        </template>
         
-    </template>
-    
-    <!-- Template 2: Heredar del template de account (sin localización) -->
-    <template id="report_invoice_document_copy_1_ultra_compact" inherit_id="account.report_invoice_document_copy_1" priority="999" optional="enabled">
+        <!-- Template 2: Heredar del template de account (sin localización) -->
+        <template id="report_invoice_document_copy_1_ultra_compact" inherit_id="account.report_invoice_document_copy_1" priority="999" optional="enabled">
+            
+            <!-- Agregar CSS ANTES del contenido -->
+            <xpath expr="//t[@t-call='web.external_layout']" position="before">
+                <style type="text/css">
+                    /* CSS específico para account.report_invoice_document_copy_1 */
+                    .header { margin: 0 !important; padding: 0 !important; }
+                    .article { margin-top: 0 !important; padding-top: 0mm !important; }
+                </style>
+            </xpath>
+            
+        </template>
         
-        <!-- Agregar CSS ANTES del contenido -->
-        <xpath expr="//t[@t-call='web.external_layout']" position="before">
-            <style type="text/css">
-                /* CSS específico para account.report_invoice_document_copy_1 */
-                .header { margin: 0 !important; padding: 0 !important; }
-                .article { margin-top: 0 !important; padding-top: 0mm !important; }
-            </style>
-        </xpath>
+        <!-- Template 3: Heredar del template de localización argentina -->
+        <template id="l10n_ar_report_invoice_document_copy_1_ultra_compact" inherit_id="l10n_ar.report_invoice_document_copy_1" priority="999" optional="enabled">
+            
+            <!-- Agregar CSS ANTES del contenido -->
+            <xpath expr="//t[@t-call='web.external_layout']" position="before">
+                <style type="text/css">
+                    /* CSS específico para l10n_ar.report_invoice_document_copy_1 */
+                    .header { margin: 0 !important; padding: 0 !important; }
+                    .article { margin-top: 0 !important; padding-top: 0mm !important; }
+                </style>
+            </xpath>
+            
+        </template>
         
-    </template>
-    
-    <!-- Template 3: Heredar del template de localización argentina -->
-    <template id="l10n_ar_report_invoice_document_copy_1_ultra_compact" inherit_id="l10n_ar.report_invoice_document_copy_1" priority="999" optional="enabled">
-        
-        <!-- Agregar CSS ANTES del contenido -->
-        <xpath expr="//t[@t-call='web.external_layout']" position="before">
-            <style type="text/css">
-                /* CSS específico para l10n_ar.report_invoice_document_copy_1 */
-                .header { margin: 0 !important; padding: 0 !important; }
-                .article { margin-top: 0 !important; padding-top: 0mm !important; }
-            </style>
-        </xpath>
-        
-    </template>
-    
+    </data>
 </odoo>
