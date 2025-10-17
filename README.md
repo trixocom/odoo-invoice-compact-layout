@@ -1,6 +1,6 @@
 # 📦 Invoice Compact Layout - Odoo 18
 
-[![Version](https://img.shields.io/badge/version-18.0.1.0.6-blue.svg)](https://github.com/trixocom/odoo-invoice-compact-layout)
+[![Version](https://img.shields.io/badge/version-18.0.1.0.7-blue.svg)](https://github.com/trixocom/odoo-invoice-compact-layout)
 [![License: LGPL-3](https://img.shields.io/badge/license-LGPL--3-green.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Odoo](https://img.shields.io/badge/Odoo-18.0-purple.svg)](https://www.odoo.com)
 
@@ -8,9 +8,11 @@
 
 Reduce **drásticamente** el espacio entre el encabezado de la empresa y la información del cliente en los reportes de factura de Odoo 18, optimizando el uso del papel sin perder legibilidad.
 
-### ✨ Versión 1.0.6 - DEFINITIVA
+### ✨ Versión 1.0.7 - CORREGIDA ✅
 
-Esta versión está basada en el **análisis del código fuente REAL** de tus templates y aplica 20 estrategias diferentes de compactación CSS.
+**Cambio v1.0.7:** Corregido error de validación XML que impedía la instalación.
+
+Esta versión está basada en el **análisis del código fuente REAL** de tus templates y aplica estrategias de compactación CSS ultra-agresivas.
 
 **Templates soportados:**
 - ✅ `account.report_invoice_copy_1` (template principal)
@@ -19,160 +21,78 @@ Esta versión está basada en el **análisis del código fuente REAL** de tus te
 - ✅ Customizaciones de Studio
 - ✅ Cualquier template que herede de los anteriores
 
-## 📸 Antes y Después
-
-**Antes:** Espacio excesivo entre "Inicio de actividades" y datos del cliente
-**Después:** Espacio mínimo, todo compacto y legible
-
-## 🚀 Instalación
-
-### Opción 1: Git Clone (Recomendado)
+## 🚀 Instalación Rápida
 
 ```bash
-# Navega al directorio de addons de tu Odoo
-cd /ruta/a/odoo/addons
+# Si ya lo tienes instalado, ACTUALIZA:
+cd /ruta/addons/odoo_invoice_compact
+git pull origin main
 
-# Clona el repositorio
+# Si es NUEVO:
+cd /ruta/addons/
 git clone https://github.com/trixocom/odoo-invoice-compact-layout.git odoo_invoice_compact
 
 # Reinicia Odoo
 sudo systemctl restart odoo
-# O si usas Docker:
+# O Docker:
 docker-compose restart odoo
 ```
 
-### Opción 2: Descargar ZIP
+### En Odoo:
+1. **Modo Desarrollador** → Configuración → Activar (`?debug=1`)
+2. **Apps** → ⋮ → **Actualizar lista de aplicaciones**
+3. Buscar **"Invoice Compact Layout"**
+4. Click en **Instalar** (o **Actualizar** si ya estaba)
+5. ¡Abrir una factura y ver los cambios!
 
-1. [Descarga el ZIP](https://github.com/trixocom/odoo-invoice-compact-layout/archive/refs/heads/main.zip)
-2. Extrae en tu directorio de addons con el nombre `odoo_invoice_compact`
-3. Reinicia Odoo
+## 📋 Características
 
-### Opción 3: Docker/Portainer
+### CSS Ultra-Específico
+- ✅ Reset completo de header (margin/padding = 0)
+- ✅ Article sin padding superior
+- ✅ Eliminación total de espacios en company_address
+- ✅ Rows compactas (0mm margin/padding)
+- ✅ Anulación de TODOS los margins Bootstrap
+- ✅ Anulación de TODOS los paddings Bootstrap
+- ✅ Ocultación de divs vacíos
+- ✅ Compactación de .oe_structure (Studio)
+- ✅ BR tags ultra-compactos
+- ✅ Line-height de 1.1 global
+- ✅ Headers y párrafos sin márgenes
+- ✅ Tablas optimizadas
 
-```bash
-# Accede al contenedor
-docker exec -it <container_name> bash
-
-# Navega a addons
-cd /mnt/extra-addons
-
-# Clona el módulo
-git clone https://github.com/trixocom/odoo-invoice-compact-layout.git odoo_invoice_compact
-
-# Sal y reinicia
-exit
-docker restart <container_name>
-```
-
-## ⚙️ Activación en Odoo
-
-1. Activa el **Modo Desarrollador**:
-   - Ve a Configuración → Activar modo desarrollador
-   - O agrega `?debug=1` a la URL
-
-2. Actualiza la lista de aplicaciones:
-   - Apps → ⋮ (menú) → Actualizar lista de aplicaciones
-
-3. Busca e instala:
-   - Busca: "Invoice Compact Layout"
-   - Click en **Instalar**
-
-4. ¡Listo! Abre cualquier factura y verás los cambios
-
-## 🔄 Actualizar a v1.0.6
-
-Si ya tienes una versión anterior instalada:
-
-```bash
-# Actualiza el repositorio
-cd /ruta/a/odoo/addons/odoo_invoice_compact
-git pull origin main
-
-# Reinicia Odoo
-sudo systemctl restart odoo
-```
-
-Luego en Odoo:
-1. Apps → Buscar "Invoice Compact Layout"
-2. Click en **Actualizar**
-
-## 📋 Características v1.0.6
-
-### 🎨 20 Estrategias de Compactación
-
-1. ✅ Reset completo del header (margin/padding 0)
-2. ✅ Padding mínimo en article (1mm)
-3. ✅ Compactación de página
-4. ✅ Eliminación de espacio después de company info
-5. ✅ Compactación de todas las rows
-6. ✅ Anulación de margins de Bootstrap (mt-*, mb-*, my-*)
-7. ✅ Anulación de paddings de Bootstrap (pt-*, pb-*, py-*)
-8. ✅ Compactación de elementos #informations
-9. ✅ Ocultación de divs vacíos
-10. ✅ Compactación de .oe_structure (Studio)
-11. ✅ Optimización de br tags
-12. ✅ Line-height global de 1.2
-13. ✅ Compactación de headers (h1-h6)
-14. ✅ Optimización de párrafos
-15. ✅ Tablas compactas
-16. ✅ Compactación de elementos de dirección
-17. ✅ Optimización de external_layout
-18. ✅ Compactación de containers
-19. ✅ Reducción de espacios en payment_term
-20. ✅ Reducción de espacios en right-elements
-
-### 🔥 Ventajas
-
-- **Compatibilidad total** con Odoo 18
+### Ventajas
+- **Compatible** con Odoo 18
 - **Compatible** con localización argentina (l10n_ar)
 - **No afecta** otros reportes
 - **Herencia limpia** mediante XPath
-- **CSS ultra-específico** con máxima prioridad
 - **Sobrescribe** customizaciones de Studio
-- **Fácil desinstalación** (todo vuelve a la normalidad)
+- **Fácil desinstalación**
 
 ## 🛠️ Solución de Problemas
 
-### El módulo instaló pero no veo cambios
-
-1. **Verifica que esté instalado:**
-   ```
-   Apps → Buscar "Invoice Compact" → Debe decir "Instalado"
-   ```
-
-2. **Limpia la caché del navegador:**
-   ```
-   Ctrl + F5 (Windows/Linux)
-   Cmd + Shift + R (Mac)
-   ```
-
-3. **Reinicia Odoo:**
-   ```bash
-   sudo systemctl restart odoo
-   ```
-
-4. **Verifica los templates:**
-   - Modo desarrollador → Configuración → Técnico → Vistas
-   - Busca: `report_invoice_copy_1_ultra_compact`
-   - Debe existir y estar activo
-
 ### Error al instalar
 
-Si ves un error como "Cannot locate node", verifica:
+Si ves: `"Element odoo has extra content: template"`
+→ **Solución:** Usa la versión 1.0.7 (ya corregido)
 
-1. Que uses Odoo 18 (no funciona en v17 o anteriores)
-2. Que el módulo `account` esté instalado
-3. Que no haya otros módulos conflictivos
+### No veo cambios
 
-### Los cambios se ven pero no son suficientes
+1. Verifica instalación: **Apps** → "Invoice Compact" → debe decir "Instalado"
+2. Limpia caché: **Ctrl + F5** (Windows/Linux) o **Cmd + Shift + R** (Mac)
+3. Reinicia Odoo
+4. Verifica templates: **Configuración** → **Técnico** → **Vistas** → buscar `report_invoice_copy_1_ultra_compact`
 
-Si necesitas aún MÁS compactación, puedes:
+### Necesito MÁS compactación
 
-1. Editar el archivo `views/report_invoice_compact.xml`
-2. Cambiar los valores de `1mm` a `0mm` o `0.5mm`
-3. Actualizar el módulo
+Edita `views/report_invoice_compact.xml` y cambia:
+- `padding-top: 1mm` → `padding-top: 0mm`
+- `margin: 1mm` → `margin: 0mm`
+- `line-height: 1.1` → `line-height: 1.0`
 
-## 📝 Estructura del Módulo
+Luego actualiza el módulo.
+
+## 📝 Estructura
 
 ```
 odoo_invoice_compact/
@@ -182,13 +102,11 @@ odoo_invoice_compact/
     └── report_invoice_compact.xml
 ```
 
-## 🤝 Contribuciones
+## 🔗 Links
 
-¿Tienes ideas para mejorar el módulo? ¡Abre un issue o envía un pull request!
-
-## 📄 Licencia
-
-LGPL-3.0 - Ver [LICENSE](LICENSE) para más detalles
+- [Repositorio GitHub](https://github.com/trixocom/odoo-invoice-compact-layout)
+- [Reportar Bug](https://github.com/trixocom/odoo-invoice-compact-layout/issues)
+- [Documentación Odoo 18](https://www.odoo.com/documentation/18.0/)
 
 ## 👨‍💻 Autor
 
@@ -196,11 +114,9 @@ LGPL-3.0 - Ver [LICENSE](LICENSE) para más detalles
 - GitHub: [@trixocom](https://github.com/trixocom)
 - Email: hectorquiroz@trixocom.com
 
-## 🔗 Links
+## 📄 Licencia
 
-- [Repositorio GitHub](https://github.com/trixocom/odoo-invoice-compact-layout)
-- [Reportar un Bug](https://github.com/trixocom/odoo-invoice-compact-layout/issues)
-- [Documentación Odoo 18](https://www.odoo.com/documentation/18.0/)
+LGPL-3.0
 
 ---
 
