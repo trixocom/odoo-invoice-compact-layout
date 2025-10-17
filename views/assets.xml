@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Agregar CSS a los assets de reportes -->
+    <template id="assets_common_compact" inherit_id="web.report_assets_common">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/odoo_invoice_compact/static/src/css/invoice_compact.css"/>
+        </xpath>
+    </template>
+    
+</odoo>
