@@ -5,6 +5,29 @@ Todos los cambios notables en este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
+## [18.0.1.0.2] - 2025-10-17
+
+### Corregido
+- **Templates incorrectos**: Versión anterior heredaba de `account.report_invoice_document` que no afectaba a reportes personalizados
+- **XPath inefectivo**: El CSS no se estaba aplicando a todos los reportes
+
+### Cambiado
+- **Approach ultra-agresivo**: Ahora hereda directamente de `web.external_layout_standard` y `web.report_layout`
+- **CSS más fuerte**: Selectores con `!important` y mayor especificidad
+- **Soporte universal**: Funciona con report_invoice_document, report_invoice_copy, report_invoice_copy_1 y cualquier variante
+- **Prioridad 999**: Asegura que los estilos sobrescriban cualquier otro CSS
+
+### Agregado
+- Dependencia de módulo `web` en el manifest
+- CSS @media print para forzar estilos en impresión
+- Selectores para clases Bootstrap (mt-*, mb-*, pt-*, pb-*)
+
+### Técnico
+- Herencia de `web.external_layout_standard` (template base de todos los reportes)
+- Herencia de `web.report_layout` (layout global de reportes)
+- XPath `//div[@class='header']` con position="after" (más confiable)
+- XPath `//head` para agregar estilos globales
+
 ## [18.0.1.0.1] - 2025-10-17
 
 ### Corregido
