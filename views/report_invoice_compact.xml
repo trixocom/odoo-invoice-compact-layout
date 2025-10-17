@@ -1,36 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
-    <!-- Herencia del template principal de factura para reducir espacios -->
-    <template id="report_invoice_document_compact" inherit_id="account.report_invoice_document">
+    <!-- Template simplificado que solo agrega estilos CSS -->
+    <template id="report_invoice_document_inherit_compact" inherit_id="account.report_invoice_document" priority="99">
         
-        <!-- Agregar clases CSS personalizadas al div principal -->
-        <xpath expr="//div[hasclass('page')]" position="attributes">
-            <attribute name="class" add="invoice-compact-layout" separator=" "/>
+        <!-- Agregar estilos CSS directamente en el documento -->
+        <xpath expr="//t[@t-call='web.external_layout']" position="before">
+            <style>
+                /* Reducir espacio del header */
+                .header {
+                    margin-bottom: 0mm !important;
+                    padding-bottom: 0mm !important;
+                }
+                
+                /* Reducir espacio del article/contenido principal */
+                .article {
+                    margin-top: 0mm !important;
+                    padding-top: 2mm !important;
+                }
+                
+                /* Reducir espacio en la página */
+                div.page {
+                    padding-top: 5mm !important;
+                }
+                
+                /* Optimizar información del documento */
+                #informations {
+                    margin-top: 2mm !important;
+                    margin-bottom: 2mm !important;
+                }
+                
+                /* Reducir espacios en filas */
+                .row {
+                    margin-bottom: 2mm !important;
+                }
+                
+                /* Optimizar tablas */
+                table.o_report_block_table,
+                table.table {
+                    margin-top: 2mm !important;
+                    margin-bottom: 2mm !important;
+                }
+                
+                table thead th {
+                    padding: 1mm 2mm !important;
+                    line-height: 1.2 !important;
+                }
+                
+                table tbody td {
+                    padding: 1mm 2mm !important;
+                    line-height: 1.2 !important;
+                }
+                
+                /* Reducir espacio después de dirección de empresa */
+                .company_address {
+                    margin-bottom: 2mm !important;
+                }
+                
+                /* Optimizar h2 títulos */
+                h2 {
+                    margin-top: 2mm !important;
+                    margin-bottom: 2mm !important;
+                }
+            </style>
         </xpath>
         
-        <!-- Eliminar espacios innecesarios en el header -->
-        <xpath expr="//div[hasclass('row')][@name='header-row']" position="attributes">
-            <attribute name="style">margin-bottom: 0mm !important; padding-bottom: 0mm !important;</attribute>
-        </xpath>
-        
-        <!-- Reducir espacio antes de la información del cliente -->
-        <xpath expr="//div[@id='informations']" position="attributes">
-            <attribute name="style">margin-top: 2mm !important; padding-top: 0mm !important;</attribute>
-        </xpath>
-        
-        <!-- Optimizar tabla de líneas de factura -->
-        <xpath expr="//table[@name='invoice_line_table']" position="attributes">
-            <attribute name="class" add="table-compact" separator=" "/>
-        </xpath>
-        
-    </template>
-    
-    <!-- Template para facturas de venta -->
-    <template id="report_invoice_compact_inherit" inherit_id="account.report_invoice">
-        <xpath expr="//t[@t-call='account.report_invoice_document']" position="attributes">
-            <attribute name="t-call">odoo_invoice_compact.report_invoice_document_compact</attribute>
-        </xpath>
     </template>
     
 </odoo>
