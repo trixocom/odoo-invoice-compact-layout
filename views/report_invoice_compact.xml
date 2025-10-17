@@ -2,146 +2,45 @@
 <odoo>
     
     <!-- ========================================================================
-         SOLUCIÓN DEFINITIVA v1.1.0 - FORMATO RECORD
+         SOLUCIÓN DEFINITIVA v1.2.0 - MÚLTIPLES TEMPLATES
          
-         Cambio v1.1.0: Usando formato <record> en lugar de <template>
-         - Odoo 18 requiere el formato estándar <record> para herencia de vistas
-         - Simplificado CSS manteniendo funcionalidad
-         - Mayor compatibilidad
+         Intenta heredar de varios templates comunes de facturas en Odoo 18
          ======================================================================== -->
     
-    <record id="report_invoice_copy_1_ultra_compact" model="ir.ui.view">
-        <field name="name">Invoice Compact - Main Report</field>
+    <!-- Opción 1: Template report_invoice_document -->
+    <record id="report_invoice_document_compact" model="ir.ui.view">
+        <field name="name">Invoice Compact - Document</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.report_invoice_copy_1"/>
+        <field name="inherit_id" ref="account.report_invoice_document"/>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <xpath expr="//style" position="after">
+            <xpath expr="//div[hasclass('page')]" position="inside">
                 <style type="text/css">
-                    /* ================================================================
-                       CSS ULTRA-COMPACTO v1.1.0
-                       
-                       Reduce el espacio entre encabezado y contenido del reporte
-                       ================================================================ */
+                    /* Reset espaciado */
+                    .header { margin: 0mm !important; padding: 0mm !important; }
+                    .article { margin-top: 0mm !important; padding-top: 0mm !important; }
+                    .page { padding-top: 1mm !important; }
+                    .row { margin: 0mm !important; padding: 0mm !important; }
                     
-                    /* Reset header */
-                    body .header, .header { 
-                        margin: 0mm !important; 
-                        padding: 0mm !important; 
+                    /* Bootstrap reset */
+                    .m-0, .m-1, .m-2, .m-3, .mt-0, .mt-1, .mt-2, .mt-3,
+                    .mb-0, .mb-1, .mb-2, .mb-3, .my-0, .my-1, .my-2, .my-3 {
+                        margin-top: 0mm !important; margin-bottom: 0mm !important;
                     }
                     
-                    /* Article compacto */
-                    body .article, .article { 
-                        margin-top: 0mm !important; 
-                        padding-top: 0mm !important; 
+                    .p-0, .p-1, .p-2, .p-3, .pt-0, .pt-1, .pt-2, .pt-3,
+                    .pb-0, .pb-1, .pb-2, .pb-3, .py-0, .py-1, .py-2, .py-3 {
+                        padding-top: 0mm !important; padding-bottom: 0mm !important;
                     }
                     
-                    /* Página compacta */
-                    body .page, .page { 
-                        padding-top: 1mm !important; 
-                    }
+                    /* Elementos */
+                    div:empty { display: none !important; }
+                    body, div, span, p { line-height: 1.1 !important; }
+                    h1, h2, h3, h4, h5, h6, p { margin: 0mm !important; padding: 0mm !important; }
                     
-                    /* Company address sin espacio */
-                    body .company_address, .company_address,
-                    body .address, .address {
-                        margin: 0mm !important;
-                        padding: 0mm !important;
-                        line-height: 1.0 !important;
-                    }
-                    
-                    /* Rows compactas */
-                    body .row, .row { 
-                        margin: 0mm !important; 
-                        padding: 0mm !important; 
-                    }
-                    
-                    /* Anular Bootstrap margins */
-                    .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
-                    .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5, 
-                    .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
-                    .my-0, .my-1, .my-2, .my-3, .my-4, .my-5 {
-                        margin-top: 0mm !important;
-                        margin-bottom: 0mm !important;
-                    }
-                    
-                    /* Anular Bootstrap paddings */
-                    .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
-                    .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
-                    .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
-                    .py-0, .py-1, .py-2, .py-3, .py-4, .py-5 {
-                        padding-top: 0mm !important;
-                        padding-bottom: 0mm !important;
-                    }
-                    
-                    /* Elementos específicos */
-                    #informations, div[id="informations"] {
-                        margin-top: 0mm !important;
-                        padding-top: 0mm !important;
-                    }
-                    
-                    /* Ocultar divs vacíos */
-                    div:empty { 
-                        display: none !important; 
-                    }
-                    
-                    /* Compactar oe_structure (Studio) */
-                    .oe_structure, div.oe_structure {
-                        margin: 0mm !important;
-                        padding: 0mm !important;
-                        min-height: 0mm !important;
-                    }
-                    
-                    /* BR tags compactos */
-                    br {
-                        line-height: 0.3 !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
-                    }
-                    
-                    /* Line height general */
-                    body, div, span, p { 
-                        line-height: 1.1 !important; 
-                    }
-                    
-                    /* Headers y párrafos */
-                    h1, h2, h3, h4, h5, h6, p { 
-                        margin: 0mm !important; 
-                        padding: 0mm !important; 
-                    }
-                    
-                    /* Tablas optimizadas */
-                    table { 
-                        margin: 1mm 0mm !important;
-                        border-collapse: collapse !important;
-                    }
-                    
-                    table thead th { 
-                        padding: 1mm 2mm !important;
-                        line-height: 1.1 !important;
-                    }
-                    
-                    table tbody td { 
-                        padding: 1mm 2mm !important;
-                        line-height: 1.1 !important;
-                    }
-                    
-                    /* Direcciones compactas */
-                    div[name*="address"] {
-                        margin: 0mm !important;
-                        padding: 0mm !important;
-                    }
-                    
-                    /* External layout */
-                    .o_report_layout_standard {
-                        padding-top: 0mm !important;
-                        margin-top: 0mm !important;
-                    }
-                    
-                    /* Containers */
-                    .container, .container-fluid {
-                        padding-top: 0mm !important;
-                        padding-bottom: 0mm !important;
-                    }
+                    /* Tablas */
+                    table { margin: 1mm 0mm !important; }
+                    table thead th, table tbody td { padding: 1mm 2mm !important; }
                 </style>
             </xpath>
         </field>
