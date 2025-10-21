@@ -1,147 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
     <!-- ========================================================================
-         SOLUCIÓN NUCLEAR v1.5.0 - INLINE STYLES
+         SOLUCIÓN DEFINITIVA v2.0.0 - MODIFICACIÓN DIRECTA DEL LAYOUT
          
-         Modifica directamente los elementos HTML con estilos inline
+         Esta versión modifica el layout externo estándar (external_layout_standard)
+         que es el que TODOS los reportes usan, incluyendo localizaciones argentinas.
+         
+         El secreto es inyectar el CSS en el BODY, no en el HEAD, para que 
+         Odoo lo procese correctamente en los PDFs.
          ======================================================================== -->
     
-    <!-- Template: report_invoice_document -->
-    <record id="report_invoice_document_compact" model="ir.ui.view">
-        <field name="name">Invoice Compact - Document</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.report_invoice_document"/>
-        <field name="priority">999</field>
+    <!-- Heredar del layout externo estándar -->
+    <record id="external_layout_standard_compact" model="ir.ui.view">
+        <field name="name">Compact Invoice Layout - External Standard</field>
+        <field name="model">ir.ui.view</field>
+        <field name="inherit_id" ref="web.external_layout_standard"/>
         <field name="arch" type="xml">
             
-            <!-- Modificar el div.page directamente -->
-            <xpath expr="//div[hasclass('page')]" position="attributes">
-                <attribute name="style">padding-top: 1mm !important; margin-top: 0mm !important;</attribute>
-            </xpath>
-            
-            <!-- Agregar CSS mega-específico -->
-            <xpath expr="//div[hasclass('page')]" position="before">
+            <!-- Inyectar CSS DESPUÉS del div.article, para máxima prioridad -->
+            <xpath expr="//div[hasclass('article')]" position="before">
                 <style type="text/css">
                     /* ================================================================
-                       CSS NUCLEAR v1.5.0 - Selectores ultra-específicos
+                       SOLUCIÓN DEFINITIVA v2.0.0 - CSS ULTRA-COMPACTO
+                       
+                       Se aplica a TODOS los reportes que usan external_layout_standard
                        ================================================================ */
                     
-                    /* Targets específicos del DOM de Odoo */
-                    body div.page div.row,
-                    div.page div.row,
-                    div.row {
-                        margin: 0mm !important;
-                        margin-top: 0mm !important;
-                        margin-bottom: 0mm !important;
-                        padding: 0mm !important;
-                        padding-top: 0mm !important;
-                        padding-bottom: 0mm !important;
+                    /* 1. RESET COMPLETO DE MÁRGENES Y PADDINGS */
+                    * {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        line-height: 1.15 !important;
                     }
                     
-                    /* Header ultra-específico */
-                    body div.page div.row div.col-6,
-                    div.page div.row div.col-6,
-                    body header,
-                    header {
-                        margin-top: 0mm !important;
-                        margin-bottom: 0mm !important;
-                        padding-top: 0mm !important;
-                        padding-bottom: 0mm !important;
-                    }
-                    
-                    /* Info de la empresa */
-                    body div.page div.row div.col-6 div,
-                    div.page div.row div.col-6 div {
-                        margin: 0mm !important;
-                        padding: 0mm !important;
-                        line-height: 1.0 !important;
-                    }
-                    
-                    /* Todos los párrafos */
-                    body div.page p,
-                    div.page p,
-                    p {
-                        margin: 0mm !important;
-                        margin-top: 0mm !important;
-                        margin-bottom: 0mm !important;
-                        padding: 0mm !important;
-                    }
-                    
-                    /* Todos los divs en general */
-                    body div.page div,
-                    div.page div {
-                        line-height: 1.1 !important;
-                    }
-                    
-                    /* Bootstrap específico */
-                    body div.page .mt-0, body div.page .mt-1, body div.page .mt-2, body div.page .mt-3,
-                    body div.page .mb-0, body div.page .mb-1, body div.page .mb-2, body div.page .mb-3,
-                    body div.page .my-0, body div.page .my-1, body div.page .my-2, body div.page .my-3,
-                    div.page .mt-0, div.page .mt-1, div.page .mt-2, div.page .mt-3,
-                    div.page .mb-0, div.page .mb-1, div.page .mb-2, div.page .mb-3,
-                    div.page .my-0, div.page .my-1, div.page .my-2, div.page .my-3 {
-                        margin-top: 0mm !important;
-                        margin-bottom: 0mm !important;
-                    }
-                    
-                    body div.page .pt-0, body div.page .pt-1, body div.page .pt-2, body div.page .pt-3,
-                    body div.page .pb-0, body div.page .pb-1, body div.page .pb-2, body div.page .pb-3,
-                    body div.page .py-0, body div.page .py-1, body div.page .py-2, body div.page .py-3,
-                    div.page .pt-0, div.page .pt-1, div.page .pt-2, div.page .pt-3,
-                    div.page .pb-0, div.page .pb-1, div.page .pb-2, div.page .pb-3,
-                    div.page .py-0, div.page .py-1, div.page .py-2, div.page .py-3 {
-                        padding-top: 0mm !important;
-                        padding-bottom: 0mm !important;
-                    }
-                    
-                    /* Clases específicas del header de factura */
-                    body div.page div.row.mt-3,
-                    div.page div.row.mt-3 {
-                        margin-top: 0mm !important;
-                    }
-                    
-                    body div.page div.row.mb-3,
-                    div.page div.row.mb-3 {
-                        margin-bottom: 0mm !important;
-                    }
-                    
-                    /* Tablas compactas */
-                    body div.page table,
-                    div.page table {
-                        margin-top: 1mm !important;
-                        margin-bottom: 1mm !important;
-                    }
-                    
-                    body div.page table thead th,
-                    body div.page table tbody td,
-                    div.page table thead th,
-                    div.page table tbody td {
+                    /* 2. EXCEPCION: permitir padding mínimo en tablas */
+                    table td, table th {
                         padding: 1mm 2mm !important;
-                        line-height: 1.1 !important;
                     }
                     
-                    /* Forzar line-height en todo */
-                    body div.page *,
-                    div.page * {
-                        line-height: 1.1 !important;
+                    /* 3. HEADER: eliminar COMPLETAMENTE el espacio */
+                    .header, header, div.header {
+                        margin: 0 !important;
+                        margin-top: 0 !important;
+                        margin-bottom: 0 !important;
+                        padding: 0 !important;
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
                     }
                     
-                    /* Divs vacíos */
-                    body div.page div:empty,
-                    div.page div:empty {
+                    /* 4. ARTICLE: pegar al header */
+                    .article, article, div.article, main {
+                        margin: 0 !important;
+                        margin-top: 0 !important;
+                        padding: 0 !important;
+                        padding-top: 2mm !important; /* mínimo espacio para legibilidad */
+                    }
+                    
+                    /* 5. PAGE: eliminar espacio superior */
+                    .page, div.page {
+                        padding-top: 0 !important;
+                        margin-top: 0 !important;
+                    }
+                    
+                    /* 6. ROWS Y COLS: eliminar Bootstrap spacing */
+                    .row, div.row {
+                        margin: 0 !important;
+                    }
+                    
+                    .col, .col-1, .col-2, .col-3, .col-4, .col-5, .col-6,
+                    .col-7, .col-8, .col-9, .col-10, .col-11, .col-12,
+                    [class*="col-"] {
+                        padding: 0 !important;
+                    }
+                    
+                    /* 7. ELIMINAR TODAS las clases de spacing de Bootstrap */
+                    .m-0, .m-1, .m-2, .m-3, .m-4, .m-5,
+                    .mt-0, .mt-1, .mt-2, .mt-3, .mt-4, .mt-5,
+                    .mb-0, .mb-1, .mb-2, .mb-3, .mb-4, .mb-5,
+                    .my-0, .my-1, .my-2, .my-3, .my-4, .my-5,
+                    .mx-0, .mx-1, .mx-2, .mx-3, .mx-4, .mx-5 {
+                        margin: 0 !important;
+                    }
+                    
+                    .p-0, .p-1, .p-2, .p-3, .p-4, .p-5,
+                    .pt-0, .pt-1, .pt-2, .pt-3, .pt-4, .pt-5,
+                    .pb-0, .pb-1, .pb-2, .pb-3, .pb-4, .pb-5,
+                    .py-0, .py-1, .py-2, .py-3, .py-4, .py-5,
+                    .px-0, .px-1, .px-2, .px-3, .px-4, .px-5 {
+                        padding: 0 !important;
+                    }
+                    
+                    /* 8. PÁRRAFOS Y TEXTO */
+                    p, span, div, strong, b, i, em {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    /* 9. HEADINGS */
+                    h1, h2, h3, h4, h5, h6 {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        line-height: 1.2 !important;
+                    }
+                    
+                    /* 10. TABLAS: compactar */
+                    table {
+                        margin: 2mm 0 !important;
+                        border-collapse: collapse !important;
+                    }
+                    
+                    /* 11. DIVS VACÍOS: ocultar */
+                    div:empty {
                         display: none !important;
                         height: 0 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
                     }
                     
-                    /* Headers y títulos */
-                    body div.page h1, body div.page h2, body div.page h3,
-                    body div.page h4, body div.page h5, body div.page h6,
-                    div.page h1, div.page h2, div.page h3,
-                    div.page h4, div.page h5, div.page h6 {
-                        margin: 0mm !important;
-                        padding: 0mm !important;
-                        line-height: 1.1 !important;
+                    /* 12. CONTAINERS */
+                    .container, .container-fluid {
+                        padding: 0 !important;
+                    }
+                    
+                    /* 13. ESPECÍFICO PARA LOCALIZACIÓN ARGENTINA */
+                    /* Si usas l10n_ar, estos selectores son críticos */
+                    div[id*="informations"] {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    div[name*="address"] {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    /* 14. FORZAR line-height compacto en TODO */
+                    body, body * {
+                        line-height: 1.15 !important;
+                    }
+                    
+                    /* 15. ESPECÍFICO: eliminar espacio después de "Inicio de actividades" */
+                    .company_address {
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    /* 16. IMPORTANTE: Sobrescribir cualquier estilo inline */
+                    [style*="margin"] {
+                        margin: 0 !important;
+                    }
+                    
+                    [style*="padding"] {
+                        padding: 0 !important;
                     }
                 </style>
             </xpath>
